@@ -18,3 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/spin-start', 'GameController@spinStart');
+Route::get('/spin-stop', 'GameController@spinStop');

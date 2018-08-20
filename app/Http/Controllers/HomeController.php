@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\User;
+use App\Game;
+use Auth;
 class HomeController extends Controller
 {
     /**
@@ -17,12 +19,13 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the Casino Game dashboard.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('casino.index');
+        $playerPoints = Game::where('user_id',Auth::user()->id)->first()->points;
+        return view('casino.index',compact(['playerPoints']));
     }
 }
