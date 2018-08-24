@@ -10,7 +10,7 @@ class Sale extends Model
         'id',
         'user_id',
         'product_id',
-        'sale_amount',
+        'sale_status',
     ];
 
 }

@@ -246,7 +246,6 @@ $(document).ready(function () {
         }
     });
 
-
     function spinStart() {
         axios.get('/spin-start').then(function (response) {
             console.log(response);
@@ -267,6 +266,5 @@ $(document).ready(function () {
             console.log(error)
         })
     }
-
 
 });

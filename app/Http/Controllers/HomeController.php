@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\User;
 use App\Game;
+use App\Products;
+use App\Sale;
+use App\User;
 use Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -25,7 +27,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $playerPoints = Game::where('user_id',Auth::user()->id)->first()->points;
-        return view('casino.index',compact(['playerPoints']));
+        $playerPoints = Game::where('user_id', Auth::user()->id)->first()->points;
+        $user = Auth::user();
+        $products = Products::all();
+
+        $sales = Sale::where('user_id',$user->id)->get();
+
+        return view('casino.index', compact(['playerPoints', 'products','user']));
     }
 }

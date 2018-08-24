@@ -3,6 +3,23 @@
 <script>
     var points = <?php echo $playerPoints; ?>;
 
+    function buyProduct(product) {
+        var product = product;
+        var productId = "product"+product.id;
+        console.log(productId);
+        axios.post('/redeem-product', {
+            'id': product.id
+        }).then(function (response) {
+            if (response.data.status === 200) {
+                swal(response.data.message);
+                console.log(points - product.price_in_points);
+                $('#'+productId).attr("disabled",true);
+            }
+        }).catch(function (error) {
+            console.log(error)
+        })
+    }
+
 </script>
 
 <div class="container casino-bg">
@@ -24,22 +41,19 @@
         </div>
     </div>
 
-    <div class="row">
-                <div class="col-lg-2">
-                    <p>
-                         points :
-                        <b id="points">
-                             {{ $playerPoints }}
-                        </b>
-                    </p>
-                </div>
-                <div class="col-lg-10">
-                    <h2 class="text-center">
-                        Products
-                    </h2>
-                </div>
+
+    <div class="col-lg-12">
+        Use Points to redeem following products :-
+        <p>
+            points :
+            <b id="points">
+                {{ $playerPoints }}
+            </b>
+        </p>
     </div>
 
+
+    @include('casino.products')
 </div>
 
 @endsection @section('internal_js')

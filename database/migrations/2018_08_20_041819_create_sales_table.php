@@ -19,7 +19,7 @@ class CreateSalesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('product_id')->unsigned()->nullable();
             $table->foreign('product_id')->references('id')->on('products');
-            $table->string('sale_amount')->nullable();
+            $table->string('sale_status')->nullable();
             $table->timestamps();
         });
     }

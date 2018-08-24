@@ -11,10 +11,13 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-   DB::table('users')->insert([
-            'name' => 'demo',
-            'email' => 'demo@test.com',
-            'password' => bcrypt('secret'),
-        ]);
+        $user = App\User::where('email', 'demo@test.com')->first();
+        if (is_null($user)) {
+            App\User::create([
+                'name' => 'demo',
+                'email' => 'demo@test.com',
+                'password' => bcrypt('secret'),
+            ]);
+        }
     }
 }

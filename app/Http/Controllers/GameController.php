@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Auth;
 use App\Game;
+use App\Products;
 use App\User;
+use App\Sale;
+use Auth;
+use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
@@ -20,7 +22,6 @@ class GameController extends Controller
         $this->middleware(['auth']);
     }
 
-
 /**
  * spin start.
  *
@@ -30,45 +31,41 @@ class GameController extends Controller
     public function spinStart()
     {
         $user = Auth::user();
-        $game = Game::where('user_id',$user->id)->first();
-        if(!is_null($game))
-        {
+        $game = Game::where('user_id', $user->id)->first();
+        if (!is_null($game)) {
             //logic if already game and user row exists
-        }else{
+        } else {
             $game = Game::create([
                 'user_id' => $user->id,
                 'points' => 0,
-                'attempts' => 1
+                'attempts' => 1,
             ]);
         }
         return response()->json(['game' => $game]);
     }
 
-
-
     /**
- * spin stop.
- *
- * @return void
- */
+     * spin stop.
+     *
+     * @return void
+     */
 
     public function spinStop(Request $request)
     {
         $points = $request->result;
         $attepts = $request->attempts;
 
-        $game = Game::where('user_id',Auth::user()->id)->first();
+        $game = Game::where('user_id', Auth::user()->id)->first();
         $game = $game->update([
             'points' => $points,
-            'attempts' => $attepts
+            'attempts' => $attepts,
         ]);
 
         return response()->json([
-            'message' => $game
+            'message' => $game,
         ]);
 
     }
-
 
     /**
      * Check the number of made by player.
@@ -80,4 +77,42 @@ class GameController extends Controller
 
     }
 
+    public function redeemProduct(Request $request)
+    {
+        $productId = $request->get('id');
+        $user = Auth::user();
+        $game = Game::where('user_id',$user->id)->first();
+        $product = Products::find($productId);
+
+        if($game->points > $product->price_in_points)
+        {
+            $sale = Sale::make([
+                'user_id' => $user->id,
+                'product_id' => $product->id,
+                'sale_status' => 'Success',
+            ]);
+
+            if($sale->save())
+            {
+                $game->update([
+                    'points' => ($game->points - $product->price_in_points)
+                ]);
+                return response()->json([
+                    'status' => 200,
+                    'id' => $product->id,
+                    'message' => 'sale created successfully',
+                ]);
+            }else{
+                return response()->json([
+                    'status' => 500,
+                    'message' => 'Something went wrong',
+                ]);
+            }
+        }else{
+                return response()->json([
+                    'message' => 'Insufficient player balance',
+                ]);
+
+        }
+    }
 }

@@ -12,24 +12,20 @@ class ProductsTableSeeder extends Seeder
     public function run()
     {
         DB::table('products')->insert([
-            'user_id' => 1,
             'name' => 'demo product 1',
             'price_in_points' => 100,
             'available_in_stock' => true,
         ]);
         DB::table('products')->insert([
-            'user_id' => 1,
             'name' => 'demo product 2',
             'price_in_points' => 300,
             'available_in_stock' => true,
 
         ]);
         DB::table('products')->insert([
-            'user_id' => 1,
             'name' => 'demo product 3',
             'price_in_points' => 500,
             'available_in_stock' => true,
-
         ]);
 
     }
