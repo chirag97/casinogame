@@ -2,6 +2,7 @@
 
 <script>
     var points = <?php echo $playerPoints; ?>;
+    var attempts = <?php echo $attempts; ?>;
 
     function buyProduct(product) {
         var product = product;
@@ -18,7 +19,15 @@
         }).catch(function (error) {
             console.log(error)
         })
-    }
+}
+
+                    // setInterval(() => {
+                    //     console.log('hello');
+                    //     currentDate = new Date();
+                    //     console.log(currentDate.getHours() + ":" +
+                    //         currentDate.getMinutes() + ":" +
+                    //         currentDate.getSeconds())
+                    // }, 100);
 
 </script>
 
@@ -38,6 +47,11 @@
             </div>
             <div id="result"></div>
 
+        </div>
+
+        <div class="col-lg-4">
+            attempts : <p id="attempts"> {{ $attempts }} </p>
+            Time : <p id="time"></p>
         </div>
     </div>
 

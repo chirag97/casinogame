@@ -27,12 +27,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $playerPoints = Game::where('user_id', Auth::user()->id)->first()->points;
+        $game = Game::where('user_id', Auth::user()->id)->first();
+
+        $playerPoints = $game ? $game->points : null;
+        $attempts = $game ? $game->attempts : null;
+        // dd($playerPoints,$attempts);
         $user = Auth::user();
         $products = Products::all();
 
         $sales = Sale::where('user_id',$user->id)->get();
 
-        return view('casino.index', compact(['playerPoints', 'products','user']));
+        return view('casino.index', compact(['playerPoints', 'products','user','attempts']));
     }
 }

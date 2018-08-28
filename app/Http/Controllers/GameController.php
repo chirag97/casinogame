@@ -34,6 +34,10 @@ class GameController extends Controller
         $game = Game::where('user_id', $user->id)->first();
         if (!is_null($game)) {
             //logic if already game and user row exists
+            $attempts = $game->attempts;
+            $game->update([
+                'attempts' => ($attempts + 1)
+            ]);
         } else {
             $game = Game::create([
                 'user_id' => $user->id,
@@ -53,12 +57,12 @@ class GameController extends Controller
     public function spinStop(Request $request)
     {
         $points = $request->result;
-        $attepts = $request->attempts;
+        $attempts = $request->attempts;
 
         $game = Game::where('user_id', Auth::user()->id)->first();
         $game = $game->update([
             'points' => $points,
-            'attempts' => $attepts,
+            'attempts' => ($attempts + 1),
         ]);
 
         return response()->json([
@@ -115,4 +119,24 @@ class GameController extends Controller
 
         }
     }
+
+    /**
+     * Reset game attempts after 30 minutes
+     */
+
+     function resetAttempts()
+     {
+        $user = Auth::user();
+        $game = Game::where('user_id', $user->id)->first();
+
+        $game->update([
+            'attempts' => 0
+        ]);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'attempts updated successfully'
+        ]);
+     }
+
 }

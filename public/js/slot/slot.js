@@ -25,7 +25,6 @@ $(document).ready(function () {
             1298 //cherry
         ];
 
-    var attempts = 0;
     var win = [];
     win[0] = win[454] = win[913] = 1;
     win[80] = win[539] = win[1000] = 2;
@@ -202,6 +201,7 @@ $(document).ready(function () {
                 b.start();
                 c.start();
                 spinStart();
+
                 this.innerHTML = "Stop";
 
                 disableControl(); //disable control until the slots reach max speed
@@ -235,7 +235,7 @@ $(document).ready(function () {
                     window.clearInterval(x);
                     printResult();
                     spinStop();
-                    $('#points').innerHTML = points;
+                    $('#points').text(points);
                 }
             }, 100);
         } else { //reset
@@ -262,9 +262,44 @@ $(document).ready(function () {
             }
         }).then(function (response) {
             console.log(response);
+            attempts = attempts + 1;
+            $('#attempts').text(attempts);
         }).catch(function (error) {
             console.log(error)
         })
     }
+
+
+        function resetGameAttempts() {
+        axios.get('/reset-attempts', {
+            params: {
+                attempts: attempts
+            }
+        }).then(function (response) {
+            console.log(response);
+        }).catch(function (error) {
+            console.log(error)
+        })
+        }
+
+    setInterval(() => {
+        currentDate = new Date();
+        currentTime = currentDate.getHours() + ":" +
+            currentDate.getMinutes() + ":" +
+            currentDate.getSeconds();
+        $('#time').text(currentTime);
+    }, 1000);
+
+
+    setInterval(() => {
+    var range = 30;
+    currentDate = new Date();
+
+    var startMinutes = currentDate.getMinutes();
+    var rangeMinutes = startMinutes + 30;
+        resetGameAttempts();
+    }, 3600000);
+
+
 
 });
