@@ -34,7 +34,7 @@ $(document).ready(function () {
     win[378] = win[837] = win[1298] = 6;
 
 
-    console.log(points);
+
     /**
      * @class Slot
      * @constructor

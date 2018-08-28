@@ -1,8 +1,8 @@
 @extends('layouts.app') @section('content')
 
 <script>
-    var points = <?php echo $playerPoints; ?>;
-    var attempts = <?php echo $attempts; ?>;
+    var points = {{ $playerPoints ? $playerPoints : 0 }};
+    var attempts = {{ $attempts ? $attempts : 0}};
 
     function buyProduct(product) {
         var product = product;
@@ -11,8 +11,8 @@
         axios.post('/redeem-product', {
             'id': product.id
         }).then(function (response) {
+            swal(response.data.message);
             if (response.data.status === 200) {
-                swal(response.data.message);
                 console.log(points - product.price_in_points);
                 $('#'+productId).attr("disabled",true);
             }
