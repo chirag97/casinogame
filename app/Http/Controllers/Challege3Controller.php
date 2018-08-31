@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class Challege3Controller extends Controller
 {
     /**
@@ -13,6 +11,7 @@ class Challege3Controller extends Controller
      */
     public function index()
     {
+        return view('challenge.challenge3');
 
     }
 }
