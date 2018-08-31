@@ -24,3 +24,8 @@ Route::get('/spin-stop', 'GameController@spinStop');
 Route::get('/reset-attempts', 'GameController@resetAttempts');
 
 Route::post('/redeem-product', 'GameController@redeemProduct');
+
+Route::get('challenge1','Challenege1Controller@index');
+Route::get('challenge2','Challenege2Controller@index');
+Route::get('challenge3','Challenege3Controller@index');
+Route::get('challenge4','Challenege4Controller@index');

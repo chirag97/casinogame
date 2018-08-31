@@ -1,0 +1,67 @@
+Challenge 1:
+Problem Statement
+Given a string consisting of lowercase alphabets, print the letters which appear more than 3 times in descending order of the number of times they appear.
+Print "NONE" (without quotes) if no letter appears more than 3 times.
+If multiple letters appear the same number of times, print them in increasing order of their ASCII value.
+Example:
+Sample Input: abbababbabkeleeklkel
+Expected output: bae
+Explanation:
+In the given string, the letters which appear more the 3 times are
+a (4 times), b (6 times), e (4 times) but since ‘a’ has lower ascii value than ‘e’, it is placed before ‘e’ and hence the sequence ‘ae’
+Note: Create a function which takes the string as a parameter and returns the output string. 
+
+
+
+Challenge 2:
+Problem Statement
+You are given an array ($a) and a value($val), find if there is a triplet in array whose sum is equal to the given value. If there is such a triplet present in array, then print the triplet and return true. Else return false.
+Example:
+Sample Input:
+$a = {12, 3, 4, 1, 6, 9}
+$val = 24
+Expected Output: {12,3,9} (as the sum of 12+3+9 = 24)
+
+
+
+Challenge 3:
+Problem Statement
+We are celebrating Diwali at Gozoop. So we decide to hang some more light bulbs outside our office. However, these light bulbs do not work like ordinary light bulbs.
+There are 100 light bulbs numbered from 1 to 100, all turned off. Multiple operations can be performed on these bulbs. When the ith operation is performed, we switch all light bulbs whose number is divisible by i; that is, we either turn them on or off, depending on their current state. We have to determine the number of bulbs that will remain switched on after performing 100 operations.
+Output Format:
+Print the number of bulbs that will be switched on after performing 100 operations.
+
+
+
+Challenge 4:
+Database Name: gozoop
+Table name: gozoop
+Title
+Category
+Keyword
+cbc
+profile
+A,b
+a
+test
+cbc
+cbc
+test
+X,y,z
+z
+profile
+cbc
+
+Write a query where we get below output: 
+Search in title, order by category – test first and then follow by Profile.
+Search in keyword, order by category – test first and then follow by Profile.
+----
+i.e., When I search CBC in search bar, I should be able to get below 
+Cbc (test)
+Cbc (profile)
+A (test)
+Z (profile)
+
+
+
+
